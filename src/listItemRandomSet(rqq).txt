@@ -1,0 +1,34 @@
+import * as React from 'react';
+import './style.css';
+
+export default function App() {
+  const [active, setActive] = React.useState(0);
+  const ref = React.useRef<HTMLLIElement>();
+  const listCount = 5;
+
+  React.useEffect(() => {
+    console.log(ref.current);
+  }, [active]);
+
+  return (
+    <div>
+      <ol>
+        {Array.from({ length: listCount }, (_, index) => (
+          <li
+            style={{
+              color: index === active ? 'cyan' : 'unset',
+            }}
+            ref={index == active ? ref : null}
+          >
+            option - {index + 1}
+          </li>
+        ))}
+      </ol>
+      <button
+        onClick={() => setActive(Math.ceil((listCount - 1) * Math.random()))}
+      >
+        random set
+      </button>
+    </div>
+  );
+}
